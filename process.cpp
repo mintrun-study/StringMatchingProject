@@ -1,0 +1,90 @@
+#include "process.h"
+
+
+
+string getAlgoName(const string& algorithm) {
+    if(algorithm == "bf") return "Brute Force";
+    if(algorithm == "rk") return "Rapin-Karp";
+    if(algorithm == "kmp") return "KMP";
+    if(algorithm == "bm") return "Boyer-Moore";
+    if(algorithm == "ac") return "Aho-Corasick";
+    return algorithm;
+}
+
+StringMatchingFunction StringAlgorithm(const string& algorithm){
+    // if(algorithm == "bf") return BruteForce;
+    // if(algorithm == "rk") return RapinKarp;
+    // if(algorithm == "kmp") return KMP;
+    // if(algorithm == "bm") return BoyerMoore;
+    // if(algorithm == "ac") return AhoCorasick;
+    return nullptr;
+}
+
+pair<double,long long> measureTimeCompare(const string algorithm, vector<string>& text, vector<string> pattern,vector<vector<result>> &res) {
+    pair<double,long long> ans;
+    long long cnt = 0;
+    auto start = std::chrono::high_resolution_clock::now();
+
+    StringMatchingFunction StringMatchingFunc = StringAlgorithm(algorithm);
+
+    // Chỗ này viết hàm xử lí ma trận grid với ma trận pattern (quan trọng nhất cần thống nhất nên t ko viết) 
+    res = StringMatchingFunc(text,pattern,cnt);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
+    ans.first = duration.count();
+    ans.second = cnt;
+    return ans;
+}
+
+void ReadFile(string filename,vector<string> & text, vector<string> & pattern){
+    ifstream f(filename);
+    if(!f) cout<<"File error"<<endl;
+    else{
+        int n,m;
+        f>>n>>m;
+        for(int i = 0;i < n;i++){
+            string s = "";
+            for(int j = 0 ; j < m;j++){
+                char c;
+                f >> c;
+                s+=c;
+            }
+            text.push_back(s);
+        }
+        f>>n;
+        for(int i = 0;i < n;i++){
+            string s;
+            f>>s;
+            pattern.push_back(s);
+        }
+    }
+    f.close();
+}
+
+void WriteFile(const string filename,string algorithm ,vector<vector<result>> ans, vector<string> &pattern, pair<double,long long> TimeCmp){
+    ofstream f(filename);
+    if(!f) cout<<"File error"<<endl;
+    int n = pattern.size();
+    for(int i =0;i < n;i++){
+        f<<pattern[i]<<": ";
+        for(result x : ans[i]){
+           f<<"("<<x.x1<<", "<<x.y1<<") -> ("<<x.x2<<", "<<x.y2<<"); "; 
+        }
+        f<<endl;
+    }
+    f<<endl;
+    f<<"---------------------------------<<endl";
+    f<<"Algorithm: "<<algorithm<<endl;
+    f<<"Comparisons: "<<TimeCmp.second<<endl;
+    f<<"Execution Time: "<<TimeCmp.first<<" ms"<<endl;
+    f.close();
+}
+
+void RunCommand(string algorithm, string inputfile, string outputfile){
+    vector<string> text;
+    vector<string> pattern;
+    ReadFile(inputfile,text,pattern);
+    vector<vector<result>> ans;
+    auto TimeCmp = measureTimeCompare(algorithm,text,pattern,ans);
+    WriteFile(outputfile,getAlgoName(algorithm),ans,pattern,TimeCmp);
+}
