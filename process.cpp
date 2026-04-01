@@ -1,6 +1,6 @@
 #include "process.h"
 
-
+vector<vector<result>> KMP(vector<string> text, vector<string> pattern, long long& count_comparison);
 
 string getAlgoName(const string& algorithm) {
     if(algorithm == "bf") return "Brute Force";
@@ -14,7 +14,7 @@ string getAlgoName(const string& algorithm) {
 StringMatchingFunction StringAlgorithm(const string& algorithm){
     // if(algorithm == "bf") return BruteForce;
     // if(algorithm == "rk") return RapinKarp;
-    // if(algorithm == "kmp") return KMP;
+    if(algorithm == "kmp") return KMP;
     // if(algorithm == "bm") return BoyerMoore;
     // if(algorithm == "ac") return AhoCorasick;
     return nullptr;
@@ -26,6 +26,10 @@ pair<double,long long> measureTimeCompare(const string algorithm, vector<string>
     auto start = std::chrono::high_resolution_clock::now();
 
     StringMatchingFunction StringMatchingFunc = StringAlgorithm(algorithm);
+    if (!StringMatchingFunc) {
+        cout << "Algorithm not implemented: " << algorithm << endl;
+        return {0, 0};
+    }
 
     // Chỗ này viết hàm xử lí ma trận grid với ma trận pattern (quan trọng nhất cần thống nhất nên t ko viết) 
     res = StringMatchingFunc(text,pattern,cnt);
@@ -67,13 +71,17 @@ void WriteFile(const string filename,string algorithm ,vector<vector<result>> an
     int n = pattern.size();
     for(int i =0;i < n;i++){
         f<<pattern[i]<<": ";
-        for(result x : ans[i]){
-           f<<"("<<x.x1<<", "<<x.y1<<") -> ("<<x.x2<<", "<<x.y2<<"); "; 
+        if(ans[i].empty()){
+            f<<"Not found"<<endl;
+        } else{
+            for(result x : ans[i]){
+                f<<"("<<x.x1<<", "<<x.y1<<") -> ("<<x.x2<<", "<<x.y2<<"); ";
+            }
         }
         f<<endl;
     }
     f<<endl;
-    f<<"---------------------------------<<endl";
+    f<<"---------------------------------"<<endl;
     f<<"Algorithm: "<<algorithm<<endl;
     f<<"Comparisons: "<<TimeCmp.second<<endl;
     f<<"Execution Time: "<<TimeCmp.first<<" ms"<<endl;
