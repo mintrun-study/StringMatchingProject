@@ -1,0 +1,13 @@
+6 6
+a b c a b c
+d e f d e f
+a b c a b c
+d e f d e f
+a b c a b c
+d e f d e f
+5
+abc
+def
+ad
+xyz
+abcabc

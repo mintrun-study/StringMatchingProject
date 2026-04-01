@@ -1,0 +1,9 @@
+5 4
+a b c d
+e b f g
+h b i j
+k b l m
+n b o p
+2
+aehkn
+bbbbb
