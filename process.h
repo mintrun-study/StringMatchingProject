@@ -4,6 +4,7 @@
 #include <vector>
 #include <chrono>
 #include <fstream>
+#include <cstring>
 using namespace std;
 
 struct result{

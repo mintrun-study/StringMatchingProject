@@ -1,6 +1,8 @@
 #include "process.h"
 
 vector<vector<result>> KMP(vector<string> text, vector<string> pattern, long long& count_comparison);
+vector<vector<result>> RapinKarp(vector<string> text, vector<string> pattern, long long& count_comparison);
+vector<vector<result>> BoyerMoore(vector<string> text, vector<string> pattern, long long& count_comparision);
 
 string getAlgoName(const string& algorithm) {
     if(algorithm == "bf") return "Brute Force";
@@ -13,9 +15,9 @@ string getAlgoName(const string& algorithm) {
 
 StringMatchingFunction StringAlgorithm(const string& algorithm){
     // if(algorithm == "bf") return BruteForce;
-    // if(algorithm == "rk") return RapinKarp;
+    if(algorithm == "rk") return RapinKarp;
     if(algorithm == "kmp") return KMP;
-    // if(algorithm == "bm") return BoyerMoore;
+    if(algorithm == "bm") return BoyerMoore;
     // if(algorithm == "ac") return AhoCorasick;
     return nullptr;
 }
@@ -72,7 +74,7 @@ void WriteFile(const string filename,string algorithm ,vector<vector<result>> an
     for(int i =0;i < n;i++){
         f<<pattern[i]<<": ";
         if(ans[i].empty()){
-            f<<"Not found"<<endl;
+            f<<"Not found";
         } else{
             for(result x : ans[i]){
                 f<<"("<<x.x1<<", "<<x.y1<<") -> ("<<x.x2<<", "<<x.y2<<"); ";
