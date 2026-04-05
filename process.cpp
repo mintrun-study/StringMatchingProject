@@ -1,8 +1,10 @@
 #include "process.h"
 
+vector<vector<result>> BruteForce(vector<string>, vector<string>, long long&);
 vector<vector<result>> KMP(vector<string> text, vector<string> pattern, long long& count_comparison);
 vector<vector<result>> RapinKarp(vector<string> text, vector<string> pattern, long long& count_comparison);
 vector<vector<result>> BoyerMoore(vector<string> text, vector<string> pattern, long long& count_comparision);
+vector<vector<result>> ZAlgorithm(vector<string>, vector<string>, long long&);
 
 string getAlgoName(const string& algorithm) {
     if(algorithm == "bf") return "Brute Force";
@@ -14,11 +16,11 @@ string getAlgoName(const string& algorithm) {
 }
 
 StringMatchingFunction StringAlgorithm(const string& algorithm){
-    // if(algorithm == "bf") return BruteForce;
+    if(algorithm == "bf") return BruteForce;
     if(algorithm == "rk") return RapinKarp;
     if(algorithm == "kmp") return KMP;
     if(algorithm == "bm") return BoyerMoore;
-    // if(algorithm == "ac") return AhoCorasick;
+    if(algorithm == "z") return ZAlgorithm;
     return nullptr;
 }
 
