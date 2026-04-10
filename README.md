@@ -9,9 +9,12 @@ k
 ```
 
 ## Usage
+You **MUST** follow the prototype:
 ```bash
-./main <algo> <input> <output>
+./main -a <algo> -i <input> -o <output>
 # algo: bf | kmp | rk | bm | z
+# input: name input file (ex: input.txt)
+# output: name output file (ex: output.txt)
 ```
 
 ---

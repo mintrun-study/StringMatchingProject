@@ -99,15 +99,4 @@ vector<vector<result>> BoyerMoore(vector<string> text, vector<string> pattern, l
     }
     return res;
 }
-void output(vector<vector<result>> res, vector<string> pattern, long long cmp, double time) {
-    // for (int q=0; q < pattern.size(); q++) {
-    //     cout << pattern[q]<<": ";
-    //     for (result tmp : res[q]) cout << "("<<tmp.x1<<", "<<tmp.y1<<") -> ("<<tmp.x2<<", "<<tmp.y2<<"); ";
-    //     if (res[q].empty()) cout<<"not found";
-    //     cout<<'\n';
-    // }
-    
-    cout<<"\n-------------------------------\nAlgorithm: Boyer-Moore\n";
-    cout<<"Comparisons: "<<cmp<<'\n';
-    cout<<"Execution Time: "<<time<<" ms\n";
-}
+

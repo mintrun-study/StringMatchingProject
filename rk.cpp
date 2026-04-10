@@ -55,13 +55,13 @@ vector<vector<result>> RapinKarp(vector<string> text, vector<string> pattern, lo
     
     
     //Duyệt hàng dọc
-     for(int col = 0; col < n;col++){
+     for(int col = 0; col < text[0].size();col++){
         for(int i =0;i < pattern_size;i++){
             t[i] = 0;
             for(int j = 0;  j < m[i]; j++){
                 t[i] = (d * t[i] + text[j][col]) % q;
             }
-            for(int j = 0; j <= n - m[i];j++){
+            for(int j = 0; j <= text[0].size() - m[i];j++){
                 if(p[i] == t[i]){
                     bool match = true;
                     for(int x = 0;x < m[i];x++){
@@ -75,7 +75,7 @@ vector<vector<result>> RapinKarp(vector<string> text, vector<string> pattern, lo
                         res[i].push_back(ans);
                     }
                 }
-                if( j < n - m[i]){
+                if( j < text[0].size() - m[i]){
                     t[i] = (d * (t[i] - text[j][col] * h[i]) + text[j+m[i]][col]) % q;
                 }
             }
