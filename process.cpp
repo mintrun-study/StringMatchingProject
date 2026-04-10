@@ -76,7 +76,12 @@ void WriteFile(const string filename,string algorithm ,vector<vector<result>> an
         if(ans[i].empty()){
             f<<"Not found";
         } else{
-            for(result x : ans[i]){
+            if(pattern[i].size() == 1){
+                for(int j = 0 ; j < ans[i].size()/2;j++){
+                    f<<"("<<ans[i][j].x1<<", "<<ans[i][j].y1<<") -> ("<<ans[i][j].x2<<", "<<ans[i][j].y2<<"); ";
+                }
+            }
+            else for(result x : ans[i]){
                 f<<"("<<x.x1<<", "<<x.y1<<") -> ("<<x.x2<<", "<<x.y2<<"); ";
             }
         }
@@ -86,7 +91,7 @@ void WriteFile(const string filename,string algorithm ,vector<vector<result>> an
     f<<"---------------------------------"<<endl;
     f<<"Algorithm: "<<algorithm<<endl;
     f<<"Comparisons: "<<TimeCmp.second<<endl;
-    f<<"Execution Time: "<<TimeCmp.first<<" ms"<<endl;
+    f<<"Execution Time: "<<fixed<<setprecision(3)<<TimeCmp.first<<" ms"<<endl;
     f.close();
 }
 

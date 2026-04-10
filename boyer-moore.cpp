@@ -1,4 +1,15 @@
-#include "process.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <time.h>
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
+
+struct result{
+    int x1,y1,x2,y2;
+};
 
 void badCharRule(string s, vector<vector<int>> &badchar) {
     for (int i=1; i <= s.size(); i++) {
@@ -30,17 +41,12 @@ void goodSuffixRule(string s, vector<int> &shift) {
     }
 }
 
-vector<int> search(string txt, string pat, long long &cmp) {
+vector<int> search(string txt, string pat, const vector<vector<int>> &badchar, const vector<int> &shift, long long &cmp) {
     vector<int> ans;
+    if (pat.size() > txt.size()) return ans;
 
     int m = pat.size();
     int n = txt.size();
-
-    vector<vector<int>> badchar(256, vector<int>(m+1, -1));
-    badCharRule(pat, badchar);
-
-    vector<int> shift(m+1, 0);
-    goodSuffixRule(pat, shift);
 
     int s = 0;
     while (s <= n-m) {
@@ -58,23 +64,32 @@ vector<int> search(string txt, string pat, long long &cmp) {
     return ans;
 }
 
+
 vector<vector<result>> BoyerMoore(vector<string> text, vector<string> pattern, long long& count_comparision) {
     vector<vector<result>> res;
+    
     for (string pat : pattern) {
+        int m = pat.size();
+        vector<vector<int>> badchar(256, vector<int>(m+1, -1));
+        badCharRule(pat, badchar);
+    
+        vector<int> shift(m+1, 0);
+        goodSuffixRule(pat, shift);
+        
         vector<result> ans;
         int row = 0;
         for (string txt : text) {
-            vector<int> cur = search(txt, pat, count_comparision);
+            vector<int> cur = search(txt, pat, badchar, shift, count_comparision);
             for (int i : cur) {
                 result r{row, i, row, i+(int)pat.size()-1};
                 ans.push_back(r);
             }
             row++;
         }
-        for (int col=0; col<text[0].size(); col++) {
+        for (int col=0; pat.size()>1 && col<text[0].size(); col++) {
             string txt="";
             for (int row=0; row<text.size(); row++) txt+=text[row][col];
-            vector<int> cur = search(txt, pat, count_comparision);
+            vector<int> cur = search(txt, pat, badchar, shift, count_comparision);
             for (int i : cur) {
                 result r = {i, col, i+(int)pat.size()-1, col};
                 ans.push_back(r);
@@ -83,4 +98,16 @@ vector<vector<result>> BoyerMoore(vector<string> text, vector<string> pattern, l
         res.push_back(ans);
     }
     return res;
+}
+void output(vector<vector<result>> res, vector<string> pattern, long long cmp, double time) {
+    // for (int q=0; q < pattern.size(); q++) {
+    //     cout << pattern[q]<<": ";
+    //     for (result tmp : res[q]) cout << "("<<tmp.x1<<", "<<tmp.y1<<") -> ("<<tmp.x2<<", "<<tmp.y2<<"); ";
+    //     if (res[q].empty()) cout<<"not found";
+    //     cout<<'\n';
+    // }
+    
+    cout<<"\n-------------------------------\nAlgorithm: Boyer-Moore\n";
+    cout<<"Comparisons: "<<cmp<<'\n';
+    cout<<"Execution Time: "<<time<<" ms\n";
 }

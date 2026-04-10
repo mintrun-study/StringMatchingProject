@@ -1,0 +1,7 @@
+test: (0, 0) -> (0, 3); (0, 0) -> (3, 0); 
+bug: Not found
+
+---------------------------------
+Algorithm: Rapin-Karp
+Comparisons: 8
+Execution Time: 0.013 ms
