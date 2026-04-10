@@ -16,9 +16,12 @@ vector<int> kmp1D(const string& text, const string& p, const vector<int>& F, lon
     vector<int> pos;
     int k = 0;
     for (int i = 0; i < (int)text.size(); i++) {
-        while (k > 0 && p[k] != text[i]) {
+        while (k > 0) {
             cmp++;
-            k = F[k-1];
+            if(p[k] != text[i]) {
+                k = F[k-1];
+            }
+            else break;
         }
         cmp++;
         if (p[k] == text[i]) k++;
