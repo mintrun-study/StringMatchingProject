@@ -35,7 +35,6 @@ pair<double,long long> measureTimeCompare(const string algorithm, vector<string>
         return {0, 0};
     }
 
-    // Chỗ này viết hàm xử lí ma trận grid với ma trận pattern (quan trọng nhất cần thống nhất nên t ko viết) 
     res = StringMatchingFunc(text,pattern,cnt);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> duration = end - start;
