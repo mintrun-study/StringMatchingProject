@@ -11,7 +11,7 @@ string getAlgoName(const string& algorithm) {
     if(algorithm == "rk") return "Rapin-Karp";
     if(algorithm == "kmp") return "KMP";
     if(algorithm == "bm") return "Boyer-Moore";
-    if(algorithm == "ac") return "Aho-Corasick";
+    if(algorithm == "z") return "Z-Algorithm";
     return algorithm;
 }
 
@@ -76,7 +76,7 @@ void WriteFile(const string filename,string algorithm ,vector<vector<result>> an
     for(int i =0;i < n;i++){
         f<<pattern[i]<<": ";
         if(ans[i].empty()){
-            f<<"Not found";
+            f<<"not found";
         } else{
             if(pattern[i].size() == 1){
                 for(int j = 0 ; j < ans[i].size()/2;j++){
