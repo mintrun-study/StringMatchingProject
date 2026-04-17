@@ -1,0 +1,7 @@
+abc: (0, 0) -> (0, 2); 
+stu: (2, 4) -> (2, 6); 
+
+---------------------------------
+Algorithm: Brute Force
+Comparisons: 49
+Execution Time: 0.013 ms

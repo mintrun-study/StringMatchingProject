@@ -12,4 +12,4 @@ int main(int argc, char* argv[]) {
     string algo = argv[2];
     string outputfile = argv[6];
     RunCommand(algo, string(argv[4]), outputfile);
-} 
+}

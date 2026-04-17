@@ -1,0 +1,7 @@
+baaa: not found
+baag: not found
+
+---------------------------------
+Algorithm: Brute Force
+Comparisons: 40
+Execution Time: 0.013 ms

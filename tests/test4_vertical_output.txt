@@ -1,0 +1,7 @@
+aehkn: (0, 0) -> (4, 0); 
+bbbbb: (0, 1) -> (4, 1); 
+
+---------------------------------
+Algorithm: Brute Force
+Comparisons: 16
+Execution Time: 0.011 ms

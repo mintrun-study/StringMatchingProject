@@ -1,0 +1,7 @@
+aaaab: not found
+aaab: not found
+
+---------------------------------
+Algorithm: Brute Force
+Comparisons: 130
+Execution Time: 0.011 ms

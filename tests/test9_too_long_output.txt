@@ -1,0 +1,7 @@
+abcdef: not found
+abcdefgh: not found
+
+---------------------------------
+Algorithm: Brute Force
+Comparisons: 0
+Execution Time: 0.004 ms

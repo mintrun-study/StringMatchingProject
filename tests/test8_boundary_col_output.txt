@@ -1,0 +1,6 @@
+acegi: (0, 0) -> (4, 0); 
+
+---------------------------------
+Algorithm: Brute Force
+Comparisons: 6
+Execution Time: 0.009 ms
