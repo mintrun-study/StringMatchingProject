@@ -1,49 +1,102 @@
-# Test Cases & Benchmarks
+# GROUP PROJECT: STRING MATCHING
 
-## Input Format
+## Introduction
+
+This project is submitted for CSC10004 - Data Structures & Algorithms. It covers the String Matching problem - a core topic in computer science with applications in text search, DNA analysis, and plagiarism detection.
+
+We implement and benchmark four algorithms (**Brute Force**, **Rabin-Karp**, **KMP**, **Boyer-Moore**) and one bonus algorithm (**Z-Algorithm**) on a 2D character grid, searching horizontally and vertically, with performance evaluated across varying grid sizes and keyword counts.
+
+---
+
+## Compile
+
+```bash
+g++ *.cpp -o crossword -std=c++17
 ```
-n m
-<grid n rows x m cols>
-k
-<k patterns>
-```
+
+> **Requirement:** GNU g++ compiler with C++17 standard. No non-standard libraries are used.
+
+---
 
 ## Usage
-You **MUST** follow the prototype:
-```bash
-./main -a <algo> -i <input> -o <output>
-# algo: bf | kmp | rk | bm | z
-# input: name input file (ex: input.txt)
-# output: name output file (ex: output.txt)
+ 
+```
+Usage: crossword[.exe] -a [algorithm] -i [input_file] -o [output_file]
+ 
+Options:
+  -a [algorithm]    Select algorithm: bf, rk, kmp, bm, z
+  -i [input_file]   Path to user-provided data file
+  -o [output_file]  Path to the result output file
+ 
+Example:
+  crossword.exe -a kmp -i puzzle.txt -o solution.txt
 ```
 
 ---
 
-## testcase/ — correctness
+## Input Format
 
-| File | Description |
-|------|-------------|
-| `test1_example.txt` | Basic example |
-| `test2_not_found.txt` | Pattern not found |
-| `test3_horizontal.txt` | Horizontal match only |
-| `test4_vertical.txt` | Vertical match only |
-| `test5_multiple.txt` | Multiple patterns |
-| `test6_edge.txt` | Pattern at grid corners/edges |
-| `test7_boundary_row.txt` | Pattern at first/last row |
-| `test8_boundary_col.txt` | Pattern at first/last column |
-| `test9_too_long.txt` | Pattern longer than grid |
-| `test10_mixed.txt` | Both horizontal and vertical |
-| `test11_worstcase_bm.txt` | Worst case for Boyer-Moore |
-| `test12_stress.txt` | Many overlapping matches |
-| `test13_worstcase_kmp.txt` | Worst case for KMP |
+```
+R C
+<R rows, each with C characters separated by spaces>
+K
+<K patterns, one per line>
+```
 
-## tests/ — performance
+**Example:**
+```
+4 4
+t e s t
+e a b c
+s d e f
+t g h i
+2
+test
+bug
+```
 
-| File | Description |
-|------|-------------|
-| `bench1_10x10.txt` | 10×10 grid |
-| `bench2_100x100.txt` | 100×100 grid |
-| `bench3_500x500.txt` | 500×500 grid |
-| `bench4_K10.txt` | 10 patterns |
-| `bench5_K50.txt` | 50 patterns |
-| `bench6_K100.txt` | 100 patterns |
+---
+
+## Output Format
+
+```
+<pattern>: (rstart, cstart) -> (rend, cend); ...
+<pattern>: not found
+--------------------------------
+Algorithm: KMP
+Comparisons: 32
+Execution Time: 0.12 ms
+```
+
+---
+
+## Test Cases (`tests/`)
+ 
+### Correctness
+ 
+| Input | Output | Description |
+|---|---|---|
+| `test1_example.txt` | `test1_example_output.txt` | Basic example from problem statement |
+| `test2_not_found.txt` | `test2_not_found_output.txt` | All patterns not found |
+| `test3_horizontal.txt` | `test3_horizontal_output.txt` | Horizontal matches only |
+| `test4_vertical.txt` | `test4_vertical_output.txt` | Vertical matches only |
+| `test5_multiple.txt` | `test5_multiple_output.txt` | Multiple occurrences, both directions |
+| `test6_edge.txt` | `test6_edge_output.txt` | Patterns at grid corners and edges |
+| `test7_boundary_row.txt` | `test7_boundary_row_output.txt` | Pattern spanning full first/last row |
+| `test8_boundary_col.txt` | `test8_boundary_col_output.txt` | Pattern spanning full first/last column |
+| `test9_too_long.txt` | `test9_too_long_output.txt` | Pattern longer than grid dimensions |
+| `test10_mixed.txt` | `test10_mixed_output.txt` | Both horizontal and vertical matches |
+| `test11_worstcase_bm.txt` | `test11_worstcase_bm_output.txt` | Worst case for Boyer-Moore |
+| `test12_stress.txt` | `test12_stress_output.txt` | Many overlapping matches |
+| `test13_worstcase_kmp.txt` | `test13_worstcase_kmp_output.txt` | Worst case for KMP |
+ 
+### Benchmarks: Performance
+ 
+| Input | Output | Description |
+|---|---|---|
+| `bench1_10x10.txt` | `bench1_10x10_output.txt` | Scenario 1 — Grid 10×10, K=5 |
+| `bench2_100x100.txt` | `bench2_100x100_output.txt` | Scenario 1 — Grid 100×100, K=5 |
+| `bench3_500x500.txt` | `bench3_500x500_output.txt` | Scenario 1 — Grid 500×500, K=5 |
+| `bench4_K10.txt` | `bench4_K10_output.txt` | Scenario 2 — Grid 100×100, K=10 |
+| `bench5_K50.txt` | `bench5_K50_output.txt` | Scenario 2 — Grid 100×100, K=50 |
+| `bench6_K100.txt` | `bench6_K100_output.txt` | Scenario 2 — Grid 100×100, K=100 |
